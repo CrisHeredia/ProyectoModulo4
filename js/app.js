@@ -9,15 +9,15 @@ var Calculadora = {
     if (valorTecla >= 0 & valorTecla <= 9){
       nrodisplay = nrodisplay + valorTecla;
       document.getElementById("display").innerHTML = nrodisplay;
-      console.log ('tecla digitada: ' + valorTecla);
-      console.log ('valor acumulado: ' + nrodisplay);
+      //console.log ('tecla digitada: ' + valorTecla);
+      //console.log ('valor acumulado: ' + nrodisplay);
     } else if (valorTecla == "/" || valorTecla == "+" || valorTecla == "-" || valorTecla == "*"){
-      console.log ('tecla digitada: ' + valorTecla);
+      //console.log ('tecla digitada: ' + valorTecla);
       numero1 = nrodisplay;
       nrodisplay = "";
       valorSigno = valorTecla;
     } else if (valorTecla == "="){
-      console.log ('tecla digitada: ' + valorTecla);
+      //console.log ('tecla digitada: ' + valorTecla);
       switch (valorSigno) {
         case "+":
           total = Number(numero1) + Number(nrodisplay);
@@ -38,7 +38,7 @@ var Calculadora = {
   },
   cambioTamanoImagen: function(event){
     var tecla = String.fromCharCode(event.which || event.KeyCode);
-    //console.log ("Presiona Tecla " + tecla);
+    console.log ("Presiona Tecla " + tecla);
     if (tecla == "9" || tecla == "i"){
       document.getElementById("9").style="width: 14.5%; height: 50px;";
       valorTecla = 9;
@@ -70,30 +70,30 @@ var Calculadora = {
       document.getElementById("0").style="width: 14.5%; height: 50px;";
       valorTecla = 0;
     } else if (tecla == "o") {
-      document.getElementById("dividido").style="width: 14.5%; height: 50px;";
-      valorTecla = "/"
+      document.getElementById("dividido").style="width: 14.5%; height: 50px; align: center;";
+      valorTecla = "/";
     } else if (tecla == "n") {
       document.getElementById("punto").style="width: 14.5%; height: 50px;";
-      valorTecla = "."
+      valorTecla = ".";
     } else if (tecla == "=") {
       document.getElementById("igual").style="width: 14.5%; height: 50px;";
-      valorTecla = "="
+      valorTecla = "=";
     } else if (tecla == "k") {
       document.getElementById("mas").style="width: 50%; height: 100px;";
-      valorTecla = "+"
+      valorTecla = "+";
     } else if (tecla == "m") {
       document.getElementById("menos").style="width: 14.5%; height: 50px;";
-      valorTecla = "-"
+      valorTecla = "-";
     } else if (tecla == "j") {
       document.getElementById("por").style="width: 14.5%; height: 50px;";
-      valorTecla = "*"
+      valorTecla = "*";
     }
     return this.valorTecla;
   },
   //console.log ('la tecla presionada es: ' + valorTecla),
   volverTamanoOriginal: function(event){
     var tecla = String.fromCharCode(event.which || event.KeyCode);
-    //console.log ("Suelta Tecla " + tecla);
+    console.log ("Suelta Tecla " + tecla);
     if (tecla == "9" || tecla == "i"){
       document.getElementById("9").style="width: 22%; height: 62.91px;";
     } else if (tecla == "8" || tecla == "h") {
