@@ -1,131 +1,136 @@
 var nrodisplay = "";
+var valorSigno = "";
 var Calculadora = {
   init: function(){
-    document.onkeydown = this.cambioTamanoImagen;
-    document.onkeyup = this.volverTamanoOriginal;
-    document.onkeypress = this.almacenarNumero;
+    document.onmousedown = this.cambioTamanoImagen;
+    document.onmouseup = this.volverTamanoOriginal;
+    document.onclick = this.funcionamiento;
   },
-  almacenarNumero: function(){
-    if (valorTecla >= 0 & valorTecla <= 9){
-      nrodisplay = nrodisplay + valorTecla;
-      document.getElementById("display").innerHTML = nrodisplay;
-      //console.log ('tecla digitada: ' + valorTecla);
-      //console.log ('valor acumulado: ' + nrodisplay);
-    } else if (valorTecla == "/" || valorTecla == "+" || valorTecla == "-" || valorTecla == "*"){
-      //console.log ('tecla digitada: ' + valorTecla);
-      numero1 = nrodisplay;
-      nrodisplay = "";
-      valorSigno = valorTecla;
-    } else if (valorTecla == "="){
-      //console.log ('tecla digitada: ' + valorTecla);
-      switch (valorSigno) {
-        case "+":
-          total = Number(numero1) + Number(nrodisplay);
-          break;
-        case "-":
-          total = Number(numero1) - Number(nrodisplay);
-          break;
-        case "*":
-          total = Number(numero1) * Number(nrodisplay);
-          break;
-        case "/":
-          total = Number(numero1) / Number(nrodisplay);
-          break;
+  funcionamiento: function(){
+    if ((nrodisplay=="" & tecla == 0) || tecla == "on") {
+      if (valorSigno == "" || tecla == "on"){
+        document.getElementById("display").innerHTML = 0;
+        numero1 = "";
+        nrodisplay = "";
+        valorSigno = "";
+        total = "0";
       }
-      document.getElementById("display").innerHTML = total;
-      nrodisplay = "";
+    } else {
+      if (tecla >= 0 & tecla <= 9 || tecla == "."){
+        nrodisplay = nrodisplay + tecla;
+        document.getElementById("display").innerHTML = nrodisplay;
+      } else if (tecla == "/" || tecla == "+" || tecla == "-" || tecla == "*"){
+        numero1 = nrodisplay;
+        nrodisplay = "";
+        valorSigno = tecla;
+      } else if (tecla == "="){
+        switch (valorSigno) {
+          case "+":
+            total = Math.round((Number(numero1) + Number(nrodisplay))*100)/100;
+            break;
+          case "-":
+            total = Math.round((Number(numero1) - Number(nrodisplay))*100)/100;
+            break;
+          case "*":
+            total = Math.round((Number(numero1) * Number(nrodisplay))*100)/100;
+            break;
+          case "/":
+            total = Math.round((Number(numero1) / Number(nrodisplay))*100)/100;
+            break;
+        }
+        document.getElementById("display").innerHTML = total;
+        numero1 = "";
+        nrodisplay = "";
+        valorSigno = "";
+      }
     }
   },
+
   cambioTamanoImagen: function(event){
-    var tecla = String.fromCharCode(event.which || event.KeyCode);
-    console.log ("Presiona Tecla " + tecla);
-    if (tecla == "9" || tecla == "i"){
+    tecla = event.target.id;
+    //console.log ("Presiona Tecla " + tecla);
+    if (tecla == "9"){
       document.getElementById("9").style="width: 14.5%; height: 50px;";
-      valorTecla = 9;
-    } else if (tecla == "8" || tecla == "h") {
+    } else if (tecla == "8") {
       document.getElementById("8").style="width: 14.5%; height: 50px;";
-      valorTecla = 8;
-    } else if (tecla == "7" || tecla == "g") {
+    } else if (tecla == "7") {
       document.getElementById("7").style="width: 14.5%; height: 50px;";
-      valorTecla = 7;
-    } else if (tecla == "6" || tecla == "f") {
+    } else if (tecla == "6") {
       document.getElementById("6").style="width: 14.5%; height: 50px;";
-      valorTecla = 6;
-    } else if (tecla == "5" || tecla == "e") {
+    } else if (tecla == "5") {
       document.getElementById("5").style="width: 14.5%; height: 50px;";
-      valorTecla = 5;
-    } else if (tecla == "4" || tecla == "d") {
+    } else if (tecla == "4") {
       document.getElementById("4").style="width: 14.5%; height: 50px;";
-      valorTecla = 4;
-    } else if (tecla == "3" || tecla == "c") {
+    } else if (tecla == "3") {
       document.getElementById("3").style="width: 14.5%; height: 50px;";
-      valorTecla = 3;
-    } else if (tecla == "2" || tecla == "b") {
+    } else if (tecla == "2") {
       document.getElementById("2").style="width: 14.5%; height: 50px;";
-      valorTecla = 2;
-    } else if (tecla == "1" || tecla == "a") {
+    } else if (tecla == "1") {
       document.getElementById("1").style="width: 14.5%; height: 50px;";
-      valorTecla = 1;
-    } else if (tecla == "0" || tecla == "`") {
+    } else if (tecla == "0") {
       document.getElementById("0").style="width: 14.5%; height: 50px;";
-      valorTecla = 0;
-    } else if (tecla == "o") {
+    } else if (tecla == "dividido") {
       document.getElementById("dividido").style="width: 14.5%; height: 50px; align: center;";
-      valorTecla = "/";
-    } else if (tecla == "n") {
+      tecla = "/";
+    } else if (tecla == "punto") {
       document.getElementById("punto").style="width: 14.5%; height: 50px;";
-      valorTecla = ".";
-    } else if (tecla == "=") {
+      tecla = ".";
+    } else if (tecla == "igual") {
       document.getElementById("igual").style="width: 14.5%; height: 50px;";
-      valorTecla = "=";
-    } else if (tecla == "k") {
+      tecla = "=";
+    } else if (tecla == "mas") {
       document.getElementById("mas").style="width: 50%; height: 100px;";
-      valorTecla = "+";
-    } else if (tecla == "m") {
+      tecla = "+";
+    } else if (tecla == "menos") {
       document.getElementById("menos").style="width: 14.5%; height: 50px;";
-      valorTecla = "-";
-    } else if (tecla == "j") {
+      tecla = "-";
+    } else if (tecla == "por") {
       document.getElementById("por").style="width: 14.5%; height: 50px;";
-      valorTecla = "*";
+      tecla = "*";
+    } else if (tecla == "on") {
+      document.getElementById("on").style="width: 14.5%; height: 50px;";
     }
-    return this.valorTecla;
+
+    return this.tecla;
   },
   //console.log ('la tecla presionada es: ' + valorTecla),
   volverTamanoOriginal: function(event){
-    var tecla = String.fromCharCode(event.which || event.KeyCode);
-    console.log ("Suelta Tecla " + tecla);
-    if (tecla == "9" || tecla == "i"){
+    //var tecla = event.target.id;
+    //console.log ("Suelta Tecla " + tecla);
+    if (tecla == "9"){
       document.getElementById("9").style="width: 22%; height: 62.91px;";
-    } else if (tecla == "8" || tecla == "h") {
+    } else if (tecla == "8") {
       document.getElementById("8").style="width: 22%; height: 62.91px;";
-    } else if (tecla=="7" || tecla == "g") {
+    } else if (tecla=="7") {
       document.getElementById("7").style="width: 22%; height: 62.91px;";
-    } else if (tecla=="6" || tecla == "f") {
+    } else if (tecla=="6") {
       document.getElementById("6").style="width: 22%; height: 62.91px;";
-    } else if (tecla=="5" || tecla == "e") {
+    } else if (tecla=="5") {
       document.getElementById("5").style="width: 22%; height: 62.91px;";
-    } else if (tecla=="4" || tecla == "d") {
+    } else if (tecla=="4") {
       document.getElementById("4").style="width: 22%; height: 62.91px;";
-    } else if (tecla=="3" || tecla == "c") {
+    } else if (tecla=="3") {
       document.getElementById("3").style="width: 30%; height: 62.91px;";
-    } else if (tecla=="2" || tecla == "b") {
+    } else if (tecla=="2") {
       document.getElementById("2").style="width: 30%; height: 62.91px;";
-    } else if (tecla=="1" || tecla == "a") {
+    } else if (tecla=="1") {
       document.getElementById("1").style="width: 30%; height: 62.91px;";
-    } else if (tecla =="0" || tecla == "`") {
+    } else if (tecla =="0") {
       document.getElementById("0").style="width: 30%; height: 62.91px;";
-    } else if (tecla == "o") {
+    } else if (tecla == "/") {
       document.getElementById("dividido").style="width: 22%; height: 62.91px;";
-    } else if (tecla == "n") {
+    } else if (tecla == ".") {
       document.getElementById("punto").style="width: 30%; height: 62.91px;";
     } else if (tecla == "=") {
       document.getElementById("igual").style="width: 30%; height: 62.91px;";
-    } else if (tecla == "k") {
+    } else if (tecla == "+") {
       document.getElementById("mas").style="width: 100%; height: 130px;";
-    } else if (tecla == "m") {
+    } else if (tecla == "-") {
       document.getElementById("menos").style="width: 22%; height: 62.91px;";
-    } else if (tecla == "j") {
+    } else if (tecla == "*") {
       document.getElementById("por").style="width: 22%; height: 62.91px;";
+    } else if (tecla == "on") {
+      document.getElementById("on").style="width: 22%; height: 62.91px;";
     }
   },
 }
