@@ -6,45 +6,6 @@ var Calculadora = {
     document.onmouseup = this.volverTamanoOriginal;
     document.onclick = this.funcionamiento;
   },
-  funcionamiento: function(){
-    if ((nrodisplay=="" & tecla == 0) || tecla == "on") {
-      if (valorSigno == "" || tecla == "on"){
-        document.getElementById("display").innerHTML = 0;
-        numero1 = "";
-        nrodisplay = "";
-        valorSigno = "";
-        total = "0";
-      }
-    } else {
-      if (tecla >= 0 & tecla <= 9 || tecla == "."){
-        nrodisplay = nrodisplay + tecla;
-        document.getElementById("display").innerHTML = nrodisplay;
-      } else if (tecla == "/" || tecla == "+" || tecla == "-" || tecla == "*"){
-        numero1 = nrodisplay;
-        nrodisplay = "";
-        valorSigno = tecla;
-      } else if (tecla == "="){
-        switch (valorSigno) {
-          case "+":
-            total = Math.round((Number(numero1) + Number(nrodisplay))*100)/100;
-            break;
-          case "-":
-            total = Math.round((Number(numero1) - Number(nrodisplay))*100)/100;
-            break;
-          case "*":
-            total = Math.round((Number(numero1) * Number(nrodisplay))*100)/100;
-            break;
-          case "/":
-            total = Math.round((Number(numero1) / Number(nrodisplay))*100)/100;
-            break;
-        }
-        document.getElementById("display").innerHTML = total;
-        numero1 = "";
-        nrodisplay = "";
-        valorSigno = "";
-      }
-    }
-  },
 
   cambioTamanoImagen: function(event){
     tecla = event.target.id;
@@ -90,7 +51,9 @@ var Calculadora = {
     } else if (tecla == "on") {
       document.getElementById("on").style="width: 14.5%; height: 50px;";
     }
-
+    else if (tecla == "sign") {
+      document.getElementById("sign").style="width: 14.5%; height: 50px;";
+    }
     return this.tecla;
   },
   //console.log ('la tecla presionada es: ' + valorTecla),
@@ -131,8 +94,74 @@ var Calculadora = {
       document.getElementById("por").style="width: 22%; height: 62.91px;";
     } else if (tecla == "on") {
       document.getElementById("on").style="width: 22%; height: 62.91px;";
+    } else if (tecla == "sign") {
+      document.getElementById("sign").style="width: 22%; height: 62.91px;";
     }
   },
+
+  funcionamiento: function(){
+    if ((nrodisplay=="" & tecla == 0) || tecla == "on") {
+      if (valorSigno == "" || tecla == "on"){
+        document.getElementById("display").innerHTML = 0;
+        numero1 = "";
+        nrodisplay = "";
+        valorSigno = "";
+        total = "0";
+      }
+    } else {
+      Calculadora.contarOcurrencia(nrodisplay,".");
+      if (tecla >= 0 & tecla <= 9 || (tecla == "." & cont == 0)){
+        if (nrodisplay.length <=7){
+           nrodisplay = nrodisplay + tecla;
+           document.getElementById("display").innerHTML = nrodisplay;
+        }
+      } else if (tecla == "sign"){
+        Calculadora.contarOcurrencia(nrodisplay,"-");
+        if (cont == 0 & nrodisplay > 0){
+          nrodisplay = "-" + nrodisplay;
+        } else if (cont == 1){
+          nrodisplay = nrodisplay.substring(1);
+        }
+        document.getElementById("display").innerHTML = nrodisplay;
+      } else if (tecla == "/" || tecla == "+" || tecla == "-" || tecla == "*"){
+        numero1 = nrodisplay;
+        nrodisplay = "";
+        valorSigno = tecla;
+      } else if (tecla == "="){
+        switch (valorSigno) {
+          case "+":
+            total = Math.round((Number(numero1) + Number(nrodisplay))*100)/100;
+            break;
+          case "-":
+            total = Math.round((Number(numero1) - Number(nrodisplay))*100)/100;
+            break;
+          case "*":
+            total = Math.round((Number(numero1) * Number(nrodisplay))*100)/100;
+            break;
+          case "/":
+            total = Math.round((Number(numero1) / Number(nrodisplay))*100)/100;
+            break;
+        }
+        totalDesp=total.toString();
+        document.getElementById("display").innerHTML = totalDesp.substring(0,8);
+        numero1 = "";
+        nrodisplay = "";
+        valorSigno = "";
+      }
+    }
+  },
+
+  contarOcurrencia: function(cadena,caracter){
+    cont = 0;
+    for(i=0;i<cadena.length;i++){
+      let = cadena.substring(i,(i+1));
+      if (let == caracter){
+        cont = cont+1;
+      }
+    }
+    return this.cont;
+  },
+
 }
 
 Calculadora.init();
