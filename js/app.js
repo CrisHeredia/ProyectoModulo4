@@ -127,6 +127,7 @@ var Calculadora = {
         numero1 = nrodisplay;
         nrodisplay = "";
         valorSigno = tecla;
+        document.getElementById("display").innerHTML = "";
       } else if (tecla == "="){
         switch (valorSigno) {
           case "+":
@@ -144,9 +145,11 @@ var Calculadora = {
         }
         totalDesp=total.toString();
         document.getElementById("display").innerHTML = totalDesp.substring(0,8);
-        numero1 = "";
-        nrodisplay = "";
-        valorSigno = "";
+        constante = nrodisplay;
+
+        nrodisplay = total;
+        numero1 = constante;
+        //valorSigno = "";
       }
     }
   },
