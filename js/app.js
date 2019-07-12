@@ -114,6 +114,7 @@ var Calculadora = {
         if (nrodisplay.length <=7){
            nrodisplay = nrodisplay + tecla;
            document.getElementById("display").innerHTML = nrodisplay;
+           constante = nrodisplay;
         }
       } else if (tecla == "sign"){
         Calculadora.contarOcurrencia(nrodisplay,"-");
@@ -145,11 +146,9 @@ var Calculadora = {
         }
         totalDesp=total.toString();
         document.getElementById("display").innerHTML = totalDesp.substring(0,8);
-        constante = nrodisplay;
-
-        nrodisplay = total;
-        numero1 = constante;
-        //valorSigno = "";
+        nrodisplay = constante;
+        numero1 = total;
+        //alert ("nrodisplay:  " + nrodisplay + "     numero1:   " + numero1 + "     constante:  " + constante);
       }
     }
   },
