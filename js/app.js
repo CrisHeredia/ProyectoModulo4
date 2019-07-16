@@ -130,6 +130,10 @@ var Calculadora = {
         valorSigno = tecla;
         document.getElementById("display").innerHTML = "";
       } else if (tecla == "="){
+        if (numero1 == 0){
+          numero1 = nrodisplay;
+          nrodisplay = constante;
+        }
         switch (valorSigno) {
           case "+":
             total = Math.round((Number(numero1) + Number(nrodisplay))*100)/100;
@@ -146,9 +150,9 @@ var Calculadora = {
         }
         totalDesp=total.toString();
         document.getElementById("display").innerHTML = totalDesp.substring(0,8);
-        nrodisplay = constante;
-        numero1 = total;
-        //alert ("nrodisplay:  " + nrodisplay + "     numero1:   " + numero1 + "     constante:  " + constante);
+        nrodisplay = total;
+        numero1 = 0;
+
       }
     }
   },
